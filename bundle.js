@@ -86,6 +86,226 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/path-browserify/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/path-browserify/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.\n//\n// Permission is hereby granted, free of charge, to any person obtaining a\n// copy of this software and associated documentation files (the\n// \"Software\"), to deal in the Software without restriction, including\n// without limitation the rights to use, copy, modify, merge, publish,\n// distribute, sublicense, and/or sell copies of the Software, and to permit\n// persons to whom the Software is furnished to do so, subject to the\n// following conditions:\n//\n// The above copyright notice and this permission notice shall be included\n// in all copies or substantial portions of the Software.\n//\n// THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS\n// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\n// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN\n// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,\n// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR\n// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE\n// USE OR OTHER DEALINGS IN THE SOFTWARE.\n\n// resolves . and .. elements in a path array with directory names there\n// must be no slashes, empty elements, or device names (c:\\) in the array\n// (so also no leading and trailing slashes - it does not distinguish\n// relative and absolute paths)\nfunction normalizeArray(parts, allowAboveRoot) {\n  // if the path tries to go above the root, `up` ends up > 0\n  var up = 0;\n  for (var i = parts.length - 1; i >= 0; i--) {\n    var last = parts[i];\n    if (last === '.') {\n      parts.splice(i, 1);\n    } else if (last === '..') {\n      parts.splice(i, 1);\n      up++;\n    } else if (up) {\n      parts.splice(i, 1);\n      up--;\n    }\n  }\n\n  // if the path is allowed to go above the root, restore leading ..s\n  if (allowAboveRoot) {\n    for (; up--; up) {\n      parts.unshift('..');\n    }\n  }\n\n  return parts;\n}\n\n// Split a filename into [root, dir, basename, ext], unix version\n// 'root' is just a slash, or nothing.\nvar splitPathRe =\n    /^(\\/?|)([\\s\\S]*?)((?:\\.{1,2}|[^\\/]+?|)(\\.[^.\\/]*|))(?:[\\/]*)$/;\nvar splitPath = function(filename) {\n  return splitPathRe.exec(filename).slice(1);\n};\n\n// path.resolve([from ...], to)\n// posix version\nexports.resolve = function() {\n  var resolvedPath = '',\n      resolvedAbsolute = false;\n\n  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {\n    var path = (i >= 0) ? arguments[i] : process.cwd();\n\n    // Skip empty and invalid entries\n    if (typeof path !== 'string') {\n      throw new TypeError('Arguments to path.resolve must be strings');\n    } else if (!path) {\n      continue;\n    }\n\n    resolvedPath = path + '/' + resolvedPath;\n    resolvedAbsolute = path.charAt(0) === '/';\n  }\n\n  // At this point the path should be resolved to a full absolute path, but\n  // handle relative paths to be safe (might happen when process.cwd() fails)\n\n  // Normalize the path\n  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {\n    return !!p;\n  }), !resolvedAbsolute).join('/');\n\n  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';\n};\n\n// path.normalize(path)\n// posix version\nexports.normalize = function(path) {\n  var isAbsolute = exports.isAbsolute(path),\n      trailingSlash = substr(path, -1) === '/';\n\n  // Normalize the path\n  path = normalizeArray(filter(path.split('/'), function(p) {\n    return !!p;\n  }), !isAbsolute).join('/');\n\n  if (!path && !isAbsolute) {\n    path = '.';\n  }\n  if (path && trailingSlash) {\n    path += '/';\n  }\n\n  return (isAbsolute ? '/' : '') + path;\n};\n\n// posix version\nexports.isAbsolute = function(path) {\n  return path.charAt(0) === '/';\n};\n\n// posix version\nexports.join = function() {\n  var paths = Array.prototype.slice.call(arguments, 0);\n  return exports.normalize(filter(paths, function(p, index) {\n    if (typeof p !== 'string') {\n      throw new TypeError('Arguments to path.join must be strings');\n    }\n    return p;\n  }).join('/'));\n};\n\n\n// path.relative(from, to)\n// posix version\nexports.relative = function(from, to) {\n  from = exports.resolve(from).substr(1);\n  to = exports.resolve(to).substr(1);\n\n  function trim(arr) {\n    var start = 0;\n    for (; start < arr.length; start++) {\n      if (arr[start] !== '') break;\n    }\n\n    var end = arr.length - 1;\n    for (; end >= 0; end--) {\n      if (arr[end] !== '') break;\n    }\n\n    if (start > end) return [];\n    return arr.slice(start, end - start + 1);\n  }\n\n  var fromParts = trim(from.split('/'));\n  var toParts = trim(to.split('/'));\n\n  var length = Math.min(fromParts.length, toParts.length);\n  var samePartsLength = length;\n  for (var i = 0; i < length; i++) {\n    if (fromParts[i] !== toParts[i]) {\n      samePartsLength = i;\n      break;\n    }\n  }\n\n  var outputParts = [];\n  for (var i = samePartsLength; i < fromParts.length; i++) {\n    outputParts.push('..');\n  }\n\n  outputParts = outputParts.concat(toParts.slice(samePartsLength));\n\n  return outputParts.join('/');\n};\n\nexports.sep = '/';\nexports.delimiter = ':';\n\nexports.dirname = function(path) {\n  var result = splitPath(path),\n      root = result[0],\n      dir = result[1];\n\n  if (!root && !dir) {\n    // No dirname whatsoever\n    return '.';\n  }\n\n  if (dir) {\n    // It has a dirname, strip trailing slash\n    dir = dir.substr(0, dir.length - 1);\n  }\n\n  return root + dir;\n};\n\n\nexports.basename = function(path, ext) {\n  var f = splitPath(path)[2];\n  // TODO: make this comparison case-insensitive on windows?\n  if (ext && f.substr(-1 * ext.length) === ext) {\n    f = f.substr(0, f.length - ext.length);\n  }\n  return f;\n};\n\n\nexports.extname = function(path) {\n  return splitPath(path)[3];\n};\n\nfunction filter (xs, f) {\n    if (xs.filter) return xs.filter(f);\n    var res = [];\n    for (var i = 0; i < xs.length; i++) {\n        if (f(xs[i], i, xs)) res.push(xs[i]);\n    }\n    return res;\n}\n\n// String.prototype.substr - negative index don't work in IE8\nvar substr = 'ab'.substr(-1) === 'b'\n    ? function (str, start, len) { return str.substr(start, len) }\n    : function (str, start, len) {\n        if (start < 0) start = str.length + start;\n        return str.substr(start, len);\n    }\n;\n\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../process/browser.js */ \"./node_modules/process/browser.js\")))\n\n//# sourceURL=webpack:///./node_modules/path-browserify/index.js?");
+
+/***/ }),
+
+/***/ "./node_modules/process/browser.js":
+/*!*****************************************!*\
+  !*** ./node_modules/process/browser.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("// shim for using process in browser\nvar process = module.exports = {};\n\n// cached from whatever global is present so that test runners that stub it\n// don't break things.  But we need to wrap it in a try catch in case it is\n// wrapped in strict mode code which doesn't define any globals.  It's inside a\n// function because try/catches deoptimize in certain engines.\n\nvar cachedSetTimeout;\nvar cachedClearTimeout;\n\nfunction defaultSetTimout() {\n    throw new Error('setTimeout has not been defined');\n}\nfunction defaultClearTimeout () {\n    throw new Error('clearTimeout has not been defined');\n}\n(function () {\n    try {\n        if (typeof setTimeout === 'function') {\n            cachedSetTimeout = setTimeout;\n        } else {\n            cachedSetTimeout = defaultSetTimout;\n        }\n    } catch (e) {\n        cachedSetTimeout = defaultSetTimout;\n    }\n    try {\n        if (typeof clearTimeout === 'function') {\n            cachedClearTimeout = clearTimeout;\n        } else {\n            cachedClearTimeout = defaultClearTimeout;\n        }\n    } catch (e) {\n        cachedClearTimeout = defaultClearTimeout;\n    }\n} ())\nfunction runTimeout(fun) {\n    if (cachedSetTimeout === setTimeout) {\n        //normal enviroments in sane situations\n        return setTimeout(fun, 0);\n    }\n    // if setTimeout wasn't available but was latter defined\n    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {\n        cachedSetTimeout = setTimeout;\n        return setTimeout(fun, 0);\n    }\n    try {\n        // when when somebody has screwed with setTimeout but no I.E. maddness\n        return cachedSetTimeout(fun, 0);\n    } catch(e){\n        try {\n            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally\n            return cachedSetTimeout.call(null, fun, 0);\n        } catch(e){\n            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error\n            return cachedSetTimeout.call(this, fun, 0);\n        }\n    }\n\n\n}\nfunction runClearTimeout(marker) {\n    if (cachedClearTimeout === clearTimeout) {\n        //normal enviroments in sane situations\n        return clearTimeout(marker);\n    }\n    // if clearTimeout wasn't available but was latter defined\n    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {\n        cachedClearTimeout = clearTimeout;\n        return clearTimeout(marker);\n    }\n    try {\n        // when when somebody has screwed with setTimeout but no I.E. maddness\n        return cachedClearTimeout(marker);\n    } catch (e){\n        try {\n            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally\n            return cachedClearTimeout.call(null, marker);\n        } catch (e){\n            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.\n            // Some versions of I.E. have different rules for clearTimeout vs setTimeout\n            return cachedClearTimeout.call(this, marker);\n        }\n    }\n\n\n\n}\nvar queue = [];\nvar draining = false;\nvar currentQueue;\nvar queueIndex = -1;\n\nfunction cleanUpNextTick() {\n    if (!draining || !currentQueue) {\n        return;\n    }\n    draining = false;\n    if (currentQueue.length) {\n        queue = currentQueue.concat(queue);\n    } else {\n        queueIndex = -1;\n    }\n    if (queue.length) {\n        drainQueue();\n    }\n}\n\nfunction drainQueue() {\n    if (draining) {\n        return;\n    }\n    var timeout = runTimeout(cleanUpNextTick);\n    draining = true;\n\n    var len = queue.length;\n    while(len) {\n        currentQueue = queue;\n        queue = [];\n        while (++queueIndex < len) {\n            if (currentQueue) {\n                currentQueue[queueIndex].run();\n            }\n        }\n        queueIndex = -1;\n        len = queue.length;\n    }\n    currentQueue = null;\n    draining = false;\n    runClearTimeout(timeout);\n}\n\nprocess.nextTick = function (fun) {\n    var args = new Array(arguments.length - 1);\n    if (arguments.length > 1) {\n        for (var i = 1; i < arguments.length; i++) {\n            args[i - 1] = arguments[i];\n        }\n    }\n    queue.push(new Item(fun, args));\n    if (queue.length === 1 && !draining) {\n        runTimeout(drainQueue);\n    }\n};\n\n// v8 likes predictible objects\nfunction Item(fun, array) {\n    this.fun = fun;\n    this.array = array;\n}\nItem.prototype.run = function () {\n    this.fun.apply(null, this.array);\n};\nprocess.title = 'browser';\nprocess.browser = true;\nprocess.env = {};\nprocess.argv = [];\nprocess.version = ''; // empty string to avoid regexp issues\nprocess.versions = {};\n\nfunction noop() {}\n\nprocess.on = noop;\nprocess.addListener = noop;\nprocess.once = noop;\nprocess.off = noop;\nprocess.removeListener = noop;\nprocess.removeAllListeners = noop;\nprocess.emit = noop;\nprocess.prependListener = noop;\nprocess.prependOnceListener = noop;\n\nprocess.listeners = function (name) { return [] }\n\nprocess.binding = function (name) {\n    throw new Error('process.binding is not supported');\n};\n\nprocess.cwd = function () { return '/' };\nprocess.chdir = function (dir) {\n    throw new Error('process.chdir is not supported');\n};\nprocess.umask = function() { return 0; };\n\n\n//# sourceURL=webpack:///./node_modules/process/browser.js?");
+
+/***/ }),
+
+/***/ "./src/assets/audio/die.wav":
+/*!**********************************!*\
+  !*** ./src/assets/audio/die.wav ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/audio/16436c886c305a4bb2f8aa04e0e00919.wav\";\n\n//# sourceURL=webpack:///./src/assets/audio/die.wav?");
+
+/***/ }),
+
+/***/ "./src/assets/audio/hit.wav":
+/*!**********************************!*\
+  !*** ./src/assets/audio/hit.wav ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/audio/3cf321a7a65534a5abd59dc9aacae746.wav\";\n\n//# sourceURL=webpack:///./src/assets/audio/hit.wav?");
+
+/***/ }),
+
+/***/ "./src/assets/audio/point.wav":
+/*!************************************!*\
+  !*** ./src/assets/audio/point.wav ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/audio/e1458a87070cab0b76f245fbcacc334b.wav\";\n\n//# sourceURL=webpack:///./src/assets/audio/point.wav?");
+
+/***/ }),
+
+/***/ "./src/assets/audio/swoosh.wav":
+/*!*************************************!*\
+  !*** ./src/assets/audio/swoosh.wav ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/audio/db32166321ae7db58ff660306b04389a.wav\";\n\n//# sourceURL=webpack:///./src/assets/audio/swoosh.wav?");
+
+/***/ }),
+
+/***/ "./src/assets/audio/wing.wav":
+/*!***********************************!*\
+  !*** ./src/assets/audio/wing.wav ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/audio/802e8685100ebd33c49630e01407641e.wav\";\n\n//# sourceURL=webpack:///./src/assets/audio/wing.wav?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/background-day-fill.png":
+/*!****************************************************!*\
+  !*** ./src/assets/sprites/background-day-fill.png ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/5bd4248852d83aaafeeada1026982ec3.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/background-day-fill.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/background-day.png":
+/*!***********************************************!*\
+  !*** ./src/assets/sprites/background-day.png ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/3d48e54bd9ecd45c7d2d358e447e9b04.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/background-day.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/base.png":
+/*!*************************************!*\
+  !*** ./src/assets/sprites/base.png ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/5b4feec2fcd1a215c914e0b526efd4d7.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/base.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/medal_bronze.png":
+/*!*********************************************!*\
+  !*** ./src/assets/sprites/medal_bronze.png ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/ce56ef3dfe7c038f6b2af2fc3359dbdf.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/medal_bronze.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/medal_gold.png":
+/*!*******************************************!*\
+  !*** ./src/assets/sprites/medal_gold.png ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/256857010857e72d9d8b2e04d283ecfb.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/medal_gold.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/medal_platinum.png":
+/*!***********************************************!*\
+  !*** ./src/assets/sprites/medal_platinum.png ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/0c32e6c93141367fa173392951945246.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/medal_platinum.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/medal_silver.png":
+/*!*********************************************!*\
+  !*** ./src/assets/sprites/medal_silver.png ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/85180cb69f8da9ea17ca8ccd77b25249.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/medal_silver.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/pipe-green.png":
+/*!*******************************************!*\
+  !*** ./src/assets/sprites/pipe-green.png ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/730f666c69c230d16cf635dcf4c3cb93.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/pipe-green.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/redbird-downflap.png":
+/*!*************************************************!*\
+  !*** ./src/assets/sprites/redbird-downflap.png ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/4291fa68d3f564d788ec523a554000c6.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/redbird-downflap.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/redbird-midflap.png":
+/*!************************************************!*\
+  !*** ./src/assets/sprites/redbird-midflap.png ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/b45d30debbb777386c5223788d9699ee.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/redbird-midflap.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/redbird-upflap.png":
+/*!***********************************************!*\
+  !*** ./src/assets/sprites/redbird-upflap.png ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/29d7e57bf5dcb8929792b34cdfb26603.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/redbird-upflap.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/scoreboard.png":
+/*!*******************************************!*\
+  !*** ./src/assets/sprites/scoreboard.png ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/5de8f5092fd42b172a37802596efa53e.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/scoreboard.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sprites/splash.png":
+/*!***************************************!*\
+  !*** ./src/assets/sprites/splash.png ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + \"assets/images/387bf265a2adcecda88ede3d21aa3e78.png\";\n\n//# sourceURL=webpack:///./src/assets/sprites/splash.png?");
+
+/***/ }),
+
 /***/ "./src/js/base/animation.js":
 /*!**********************************!*\
   !*** ./src/js/base/animation.js ***!
@@ -110,204 +330,6 @@ eval("__webpack_require__.r(__webpack_exports__);\nconst config = {\n  SCORE_Y: 
 
 /***/ }),
 
-/***/ "./src/js/elements sync recursive ^.*assets\\/audio\\/die\\.wav$":
-/*!**********************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/audio\/die\.wav$ ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/die\\\\.wav$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/audio\\/die\\.wav$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/audio\\/hit\\.wav$":
-/*!**********************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/audio\/hit\.wav$ ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/hit\\\\.wav$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/audio\\/hit\\.wav$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/audio\\/point\\.wav$":
-/*!************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/audio\/point\.wav$ ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/point\\\\.wav$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/audio\\/point\\.wav$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/audio\\/swoosh\\.wav$":
-/*!*************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/audio\/swoosh\.wav$ ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/swoosh\\\\.wav$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/audio\\/swoosh\\.wav$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/audio\\/wing\\.wav$":
-/*!***********************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/audio\/wing\.wav$ ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/wing\\\\.wav$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/audio\\/wing\\.wav$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/background\\-day\\-fill\\.png$":
-/*!******************************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/background\-day\-fill\.png$ ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/background\\\\-day\\\\-fill\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/background\\-day\\-fill\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/background\\-day\\.png$":
-/*!************************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/background\-day\.png$ ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/background\\\\-day\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/background\\-day\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/base\\.png$":
-/*!*************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/base\.png$ ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/base\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/base\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/medal_bronze\\.png$":
-/*!*********************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/medal_bronze\.png$ ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_bronze\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/medal_bronze\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/medal_gold\\.png$":
-/*!*******************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/medal_gold\.png$ ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_gold\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/medal_gold\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/medal_platinum\\.png$":
-/*!***********************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/medal_platinum\.png$ ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_platinum\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/medal_platinum\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/medal_silver\\.png$":
-/*!*********************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/medal_silver\.png$ ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_silver\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/medal_silver\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/pipe\\-green\\.png$":
-/*!********************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/pipe\-green\.png$ ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/pipe\\\\-green\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/pipe\\-green\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/redbird\\-downflap\\.png$":
-/*!**************************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/redbird\-downflap\.png$ ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-downflap\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/redbird\\-downflap\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/redbird\\-midflap\\.png$":
-/*!*************************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/redbird\-midflap\.png$ ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-midflap\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/redbird\\-midflap\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/redbird\\-upflap\\.png$":
-/*!************************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/redbird\-upflap\.png$ ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-upflap\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/redbird\\-upflap\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/scoreboard\\.png$":
-/*!*******************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/scoreboard\.png$ ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/scoreboard\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/scoreboard\\.png$?");
-
-/***/ }),
-
-/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/splash\\.png$":
-/*!***************************************************************!*\
-  !*** ./src/js/elements sync ^.*assets\/sprites\/splash\.png$ ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/splash\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/splash\\.png$?");
-
-/***/ }),
-
 /***/ "./src/js/elements/assets.js":
 /*!***********************************!*\
   !*** ./src/js/elements/assets.js ***!
@@ -316,7 +338,7 @@ eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find mod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// 腾讯云储存\n// const remotePath = 'https://lg-ifkf8f9o-1257111143.cos.ap-shanghai.myqcloud.com/';\nconst remotePath = \"src/\";\nconst assets = {};\nconst imgDict = {\n  background_day: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/background\\\\-day\\\\.png$\")(remotePath + \"assets/sprites/background-day.png\"),\n  base: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/base\\\\.png$\")(remotePath + \"assets/sprites/base.png\"),\n  redbird_downflap: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-downflap\\\\.png$\")(remotePath + \"assets/sprites/redbird-downflap.png\"),\n  redbird_midflap: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-midflap\\\\.png$\")(remotePath + \"assets/sprites/redbird-midflap.png\"),\n  redbird_upflap: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-upflap\\\\.png$\")(remotePath + \"assets/sprites/redbird-upflap.png\"),\n  scoreboard: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/scoreboard\\\\.png$\")(remotePath + \"assets/sprites/scoreboard.png\"),\n  pipe_green: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/pipe\\\\-green\\\\.png$\")(remotePath + \"assets/sprites/pipe-green.png\"),\n  splash: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/splash\\\\.png$\")(remotePath + \"assets/sprites/splash.png\"),\n  background_day_fill: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/background\\\\-day\\\\-fill\\\\.png$\")(remotePath +\n    \"assets/sprites/background-day-fill.png\"),\n  medal_bronze: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_bronze\\\\.png$\")(remotePath + \"assets/sprites/medal_bronze.png\"),\n  medal_silver: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_silver\\\\.png$\")(remotePath + \"assets/sprites/medal_silver.png\"),\n  medal_gold: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_gold\\\\.png$\")(remotePath + \"assets/sprites/medal_gold.png\"),\n  medal_platinum: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_platinum\\\\.png$\")(remotePath + \"assets/sprites/medal_platinum.png\")\n};\nconst audioDict = {\n  audioDie: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/die\\\\.wav$\")(remotePath + \"assets/audio/die.wav\"),\n  audioHit: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/hit\\\\.wav$\")(remotePath + \"assets/audio/hit.wav\"),\n  audioPoint: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/point\\\\.wav$\")(remotePath + \"assets/audio/point.wav\"),\n  audioSwoosh: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/swoosh\\\\.wav$\")(remotePath + \"assets/audio/swoosh.wav\"),\n  audioWing: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/wing\\\\.wav$\")(remotePath + \"assets/audio/wing.wav\")\n};\n\nObject.keys(imgDict).forEach(key => {\n  const img = new Image();\n  img.src = imgDict[key];\n  assets[key] = img;\n});\nObject.keys(audioDict).forEach(key => {\n  const audio = new Audio();\n  audio.src = audioDict[key];\n  assets[key] = audio;\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (assets);\n\n\n//# sourceURL=webpack:///./src/js/elements/assets.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n// 腾讯云储存\n// const remotePath = 'https://lg-ifkf8f9o-1257111143.cos.ap-shanghai.myqcloud.com/';\nconst path = __webpack_require__(/*! path */ \"./node_modules/path-browserify/index.js\");\nconst background_day = __webpack_require__(/*! ../../assets/sprites/background-day.png */ \"./src/assets/sprites/background-day.png\");\nconst base = __webpack_require__(/*! ../../assets/sprites/base.png */ \"./src/assets/sprites/base.png\");\nconst redbird_downflap = __webpack_require__(/*! ../../assets/sprites/redbird-downflap.png */ \"./src/assets/sprites/redbird-downflap.png\");\nconst redbird_midflap = __webpack_require__(/*! ../../assets/sprites/redbird-midflap.png */ \"./src/assets/sprites/redbird-midflap.png\");\nconst redbird_upflap = __webpack_require__(/*! ../../assets/sprites/redbird-upflap.png */ \"./src/assets/sprites/redbird-upflap.png\");\nconst scoreboard = __webpack_require__(/*! ../../assets/sprites/scoreboard.png */ \"./src/assets/sprites/scoreboard.png\");\nconst pipe_green = __webpack_require__(/*! ../../assets/sprites/pipe-green.png */ \"./src/assets/sprites/pipe-green.png\");\nconst splash = __webpack_require__(/*! ../../assets/sprites/splash.png */ \"./src/assets/sprites/splash.png\");\nconst background_day_fill = __webpack_require__(/*! ../../assets/sprites/background-day-fill.png */ \"./src/assets/sprites/background-day-fill.png\");\nconst medal_bronze = __webpack_require__(/*! ../../assets/sprites/medal_bronze.png */ \"./src/assets/sprites/medal_bronze.png\");\nconst medal_silver = __webpack_require__(/*! ../../assets/sprites/medal_silver.png */ \"./src/assets/sprites/medal_silver.png\");\nconst medal_gold = __webpack_require__(/*! ../../assets/sprites/medal_gold.png */ \"./src/assets/sprites/medal_gold.png\");\nconst medal_platinum = __webpack_require__(/*! ../../assets/sprites/medal_platinum.png */ \"./src/assets/sprites/medal_platinum.png\");\n\n// audio\nconst audioDie = __webpack_require__(/*! ../../assets/audio/die.wav */ \"./src/assets/audio/die.wav\");\nconst audioHit = __webpack_require__(/*! ../../assets/audio/hit.wav */ \"./src/assets/audio/hit.wav\");\nconst audioPoint = __webpack_require__(/*! ../../assets/audio/point.wav */ \"./src/assets/audio/point.wav\");\nconst audioSwoosh = __webpack_require__(/*! ../../assets/audio/swoosh.wav */ \"./src/assets/audio/swoosh.wav\");\nconst audioWing = __webpack_require__(/*! ../../assets/audio/wing.wav */ \"./src/assets/audio/wing.wav\");\n\nconst remotePath = \"\";\nconst assets = {};\nconst imgDict = {\n  background_day,\n  base,\n  redbird_downflap,\n  redbird_midflap,\n  redbird_upflap,\n  scoreboard,\n  pipe_green,\n  splash,\n  background_day_fill,\n  medal_bronze,\n  medal_silver,\n  medal_gold,\n  medal_platinum\n};\nconst audioDict = {\n  audioDie,\n  audioHit,\n  audioPoint,\n  audioSwoosh,\n  audioWing\n};\n\nObject.keys(imgDict).forEach(key => {\n  const img = new Image();\n  img.src = imgDict[key];\n  assets[key] = img;\n});\nObject.keys(audioDict).forEach(key => {\n  const audio = new Audio();\n  audio.src = audioDict[key];\n  assets[key] = audio;\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (assets);\n\n\n//# sourceURL=webpack:///./src/js/elements/assets.js?");
 
 /***/ }),
 
