@@ -77,7 +77,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "assets/";
+/******/ 	__webpack_require__.p = "";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -110,6 +110,204 @@ eval("__webpack_require__.r(__webpack_exports__);\nconst config = {\n  SCORE_Y: 
 
 /***/ }),
 
+/***/ "./src/js/elements sync recursive ^.*assets\\/audio\\/die\\.wav$":
+/*!**********************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/audio\/die\.wav$ ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/die\\\\.wav$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/audio\\/die\\.wav$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/audio\\/hit\\.wav$":
+/*!**********************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/audio\/hit\.wav$ ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/hit\\\\.wav$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/audio\\/hit\\.wav$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/audio\\/point\\.wav$":
+/*!************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/audio\/point\.wav$ ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/point\\\\.wav$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/audio\\/point\\.wav$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/audio\\/swoosh\\.wav$":
+/*!*************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/audio\/swoosh\.wav$ ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/swoosh\\\\.wav$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/audio\\/swoosh\\.wav$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/audio\\/wing\\.wav$":
+/*!***********************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/audio\/wing\.wav$ ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/wing\\\\.wav$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/audio\\/wing\\.wav$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/background\\-day\\-fill\\.png$":
+/*!******************************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/background\-day\-fill\.png$ ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/background\\\\-day\\\\-fill\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/background\\-day\\-fill\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/background\\-day\\.png$":
+/*!************************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/background\-day\.png$ ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/background\\\\-day\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/background\\-day\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/base\\.png$":
+/*!*************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/base\.png$ ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/base\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/base\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/medal_bronze\\.png$":
+/*!*********************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/medal_bronze\.png$ ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_bronze\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/medal_bronze\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/medal_gold\\.png$":
+/*!*******************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/medal_gold\.png$ ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_gold\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/medal_gold\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/medal_platinum\\.png$":
+/*!***********************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/medal_platinum\.png$ ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_platinum\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/medal_platinum\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/medal_silver\\.png$":
+/*!*********************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/medal_silver\.png$ ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_silver\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/medal_silver\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/pipe\\-green\\.png$":
+/*!********************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/pipe\-green\.png$ ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/pipe\\\\-green\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/pipe\\-green\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/redbird\\-downflap\\.png$":
+/*!**************************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/redbird\-downflap\.png$ ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-downflap\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/redbird\\-downflap\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/redbird\\-midflap\\.png$":
+/*!*************************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/redbird\-midflap\.png$ ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-midflap\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/redbird\\-midflap\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/redbird\\-upflap\\.png$":
+/*!************************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/redbird\-upflap\.png$ ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-upflap\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/redbird\\-upflap\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/scoreboard\\.png$":
+/*!*******************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/scoreboard\.png$ ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/scoreboard\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/scoreboard\\.png$?");
+
+/***/ }),
+
+/***/ "./src/js/elements sync recursive ^.*assets\\/sprites\\/splash\\.png$":
+/*!***************************************************************!*\
+  !*** ./src/js/elements sync ^.*assets\/sprites\/splash\.png$ ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyContext(req) {\n\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\te.code = 'MODULE_NOT_FOUND';\n\tthrow e;\n}\nwebpackEmptyContext.keys = function() { return []; };\nwebpackEmptyContext.resolve = webpackEmptyContext;\nmodule.exports = webpackEmptyContext;\nwebpackEmptyContext.id = \"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/splash\\\\.png$\";\n\n//# sourceURL=webpack:///./src/js/elements_sync_^.*assets\\/sprites\\/splash\\.png$?");
+
+/***/ }),
+
 /***/ "./src/js/elements/assets.js":
 /*!***********************************!*\
   !*** ./src/js/elements/assets.js ***!
@@ -118,7 +316,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nconst config = {\n  SCORE_Y: 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// 腾讯云储存\n// const remotePath = 'https://lg-ifkf8f9o-1257111143.cos.ap-shanghai.myqcloud.com/';\nconst remotePath = \"./\";\nconst assets = {};\nconst imgDict = {\n  background_day: remotePath + \"assets/sprites/background-day.png\",\n  base: remotePath + \"assets/sprites/base.png\",\n  redbird_downflap: remotePath + \"assets/sprites/redbird-downflap.png\",\n  redbird_midflap: remotePath + \"assets/sprites/redbird-midflap.png\",\n  redbird_upflap: remotePath + \"assets/sprites/redbird-upflap.png\",\n  scoreboard: remotePath + \"assets/sprites/scoreboard.png\",\n  pipe_green: remotePath + \"assets/sprites/pipe-green.png\",\n  splash: remotePath + \"assets/sprites/splash.png\",\n  background_day_fill: remotePath + \"assets/sprites/background-day-fill.png\",\n  medal_bronze: remotePath + \"assets/sprites/medal_bronze.png\",\n  medal_silver: remotePath + \"assets/sprites/medal_silver.png\",\n  medal_gold: remotePath + \"assets/sprites/medal_gold.png\",\n  medal_platinum: remotePath + \"assets/sprites/medal_platinum.png\"\n};\nconst audioDict = {\n  audioDie: remotePath + \"assets/audio/die.wav\",\n  audioHit: remotePath + \"assets/audio/hit.wav\",\n  audioPoint: remotePath + \"assets/audio/point.wav\",\n  audioSwoosh: remotePath + \"assets/audio/swoosh.wav\",\n  audioWing: remotePath + \"assets/audio/wing.wav\"\n};\n\nObject.keys(imgDict).forEach(key => {\n  const img = new Image();\n  img.src = imgDict[key];\n  assets[key] = img;\n});\nObject.keys(audioDict).forEach(key => {\n  const audio = new Audio();\n  audio.src = audioDict[key];\n  assets[key] = audio;\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (assets);\n\n\n//# sourceURL=webpack:///./src/js/elements/assets.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n// 腾讯云储存\n// const remotePath = 'https://lg-ifkf8f9o-1257111143.cos.ap-shanghai.myqcloud.com/';\nconst remotePath = \"src/\";\nconst assets = {};\nconst imgDict = {\n  background_day: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/background\\\\-day\\\\.png$\")(remotePath + \"assets/sprites/background-day.png\"),\n  base: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/base\\\\.png$\")(remotePath + \"assets/sprites/base.png\"),\n  redbird_downflap: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-downflap\\\\.png$\")(remotePath + \"assets/sprites/redbird-downflap.png\"),\n  redbird_midflap: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-midflap\\\\.png$\")(remotePath + \"assets/sprites/redbird-midflap.png\"),\n  redbird_upflap: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/redbird\\\\-upflap\\\\.png$\")(remotePath + \"assets/sprites/redbird-upflap.png\"),\n  scoreboard: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/scoreboard\\\\.png$\")(remotePath + \"assets/sprites/scoreboard.png\"),\n  pipe_green: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/pipe\\\\-green\\\\.png$\")(remotePath + \"assets/sprites/pipe-green.png\"),\n  splash: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/splash\\\\.png$\")(remotePath + \"assets/sprites/splash.png\"),\n  background_day_fill: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/background\\\\-day\\\\-fill\\\\.png$\")(remotePath +\n    \"assets/sprites/background-day-fill.png\"),\n  medal_bronze: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_bronze\\\\.png$\")(remotePath + \"assets/sprites/medal_bronze.png\"),\n  medal_silver: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_silver\\\\.png$\")(remotePath + \"assets/sprites/medal_silver.png\"),\n  medal_gold: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_gold\\\\.png$\")(remotePath + \"assets/sprites/medal_gold.png\"),\n  medal_platinum: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/sprites\\\\/medal_platinum\\\\.png$\")(remotePath + \"assets/sprites/medal_platinum.png\")\n};\nconst audioDict = {\n  audioDie: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/die\\\\.wav$\")(remotePath + \"assets/audio/die.wav\"),\n  audioHit: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/hit\\\\.wav$\")(remotePath + \"assets/audio/hit.wav\"),\n  audioPoint: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/point\\\\.wav$\")(remotePath + \"assets/audio/point.wav\"),\n  audioSwoosh: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/swoosh\\\\.wav$\")(remotePath + \"assets/audio/swoosh.wav\"),\n  audioWing: __webpack_require__(\"./src/js/elements sync recursive ^.*assets\\\\/audio\\\\/wing\\\\.wav$\")(remotePath + \"assets/audio/wing.wav\")\n};\n\nObject.keys(imgDict).forEach(key => {\n  const img = new Image();\n  img.src = imgDict[key];\n  assets[key] = img;\n});\nObject.keys(audioDict).forEach(key => {\n  const audio = new Audio();\n  audio.src = audioDict[key];\n  assets[key] = audio;\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (assets);\n\n\n//# sourceURL=webpack:///./src/js/elements/assets.js?");
 
 /***/ }),
 
