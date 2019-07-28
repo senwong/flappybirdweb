@@ -7,11 +7,13 @@
     "webpack": "^4.16.4"
   },
   "devDependencies": {
+    "file-loader": "^4.1.0",
+    "gh-pages": "^2.0.1",
     "webpack-cli": "^3.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/WJ941/IFlappyBird/issues"
+    "url": "https://github.com/WJ941/flappybirdweb/issues"
   },
-  "homepage": "https://github.com/WJ941/IFlappyBird#readme"
+  "homepage": "https://github.com/WJ941/flappybirdweb#readme"
 }
